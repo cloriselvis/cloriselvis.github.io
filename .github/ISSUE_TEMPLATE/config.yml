@@ -6,3 +6,6 @@ contact_links:
   - name: Pilot page
     url: https://cloriselvis.github.io/pilot.html
     about: Request a pilot cleanup review (share only sanitized samples).
+  - name: Workflow cleanup pilot
+    url: https://cloriselvis.github.io/workflow-cleanup.html
+    about: Request a review of one fragile automation or AI-assisted workflow.

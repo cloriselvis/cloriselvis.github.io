@@ -1,0 +1,53 @@
+name: "Workflow cleanup pilot"
+description: "Request a review of one fragile automation or AI-assisted workflow."
+title: "Workflow cleanup pilot request"
+labels:
+  - workflow-cleanup
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not share credentials, secrets, private customer data, or internal screenshots without redaction.
+        Start with a sanitized description. The goal is to identify failure points and one concrete repair.
+  - type: input
+    id: role
+    attributes:
+      label: Role / team
+      placeholder: "Founder, ops manager, agency, solo operator..."
+    validations:
+      required: true
+  - type: input
+    id: tools
+    attributes:
+      label: Tools involved
+      placeholder: "n8n, Zapier, Make, Airtable, Google Sheets, HubSpot, Slack..."
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: What should the workflow do?
+      placeholder: "When X happens, it should do Y, then notify Z..."
+    validations:
+      required: true
+  - type: textarea
+    id: failure
+    attributes:
+      label: What breaks or feels unreliable?
+      placeholder: "Silent failures, duplicate records, expired credentials, unclear errors..."
+    validations:
+      required: true
+  - type: input
+    id: cost
+    attributes:
+      label: Cost of the problem
+      placeholder: "Hours/week, missed leads, delayed reports, customer complaints..."
+    validations:
+      required: false
+  - type: textarea
+    id: safe_context
+    attributes:
+      label: Sanitized context or diagram
+      description: "Paste a redacted outline. No secrets, tokens, credentials, or private data."
+    validations:
+      required: false
