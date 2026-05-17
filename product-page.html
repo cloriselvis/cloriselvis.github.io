@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LeadLint Studio - CSV lead cleanup before CRM import</title>
+    <link rel="stylesheet" href="product.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="product-page.html">LeadLint Studio</a>
+      <nav aria-label="Product">
+        <a href="index.html">Open app</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refund.html">Refunds</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Browser-only CSV cleaner</p>
+          <h1>Clean messy lead lists before they poison your CRM.</h1>
+          <p class="lede">LeadLint Studio normalizes emails, names, phones, and domains, then flags duplicates and bad records before import. Your CSV stays in the browser.</p>
+          <div class="hero-actions">
+            <a class="primary-link" href="index.html">Try the local app</a>
+            <a class="secondary-link" href="#pricing">View pricing</a>
+          </div>
+        </div>
+        <div class="product-shot" aria-label="Product preview">
+          <div class="shot-top">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="shot-grid">
+            <div class="shot-panel">
+              <strong>Raw CSV</strong>
+              <p>jane.doe@example.com<br>bad-email<br>sam@tempmail.com</p>
+            </div>
+            <div class="shot-panel">
+              <strong>Cleanup report</strong>
+              <p>1 duplicate merged<br>2 email issues<br>3 normalized phones</p>
+            </div>
+          </div>
+          <table>
+            <tr><th>Status</th><th>Email</th><th>Notes</th></tr>
+            <tr><td>Clean</td><td>jane.doe@example.com</td><td>Merged duplicate</td></tr>
+            <tr><td>Issue</td><td>bad-email</td><td>Invalid email</td></tr>
+            <tr><td>Issue</td><td>sam@tempmail.com</td><td>Disposable email</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-band">
+        <div class="section-inner">
+          <h2>Built for small teams that import lists</h2>
+          <div class="feature-grid">
+            <article>
+              <h3>Private by design</h3>
+              <p>The tool runs locally in the browser. There is no upload server, account, or third-party data enrichment.</p>
+            </article>
+            <article>
+              <h3>CRM-ready cleanup</h3>
+              <p>Normalize common lead fields before importing into HubSpot, Pipedrive, Salesforce, Airtable, or spreadsheets.</p>
+            </article>
+            <article>
+              <h3>Service handoff</h3>
+              <p>Export a clean CSV and a separate issue report for audit notes, client delivery, or manual review.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="pricing" id="pricing">
+        <div class="pricing-copy">
+          <h2>Simple launch offer</h2>
+          <p>One-time access to the offline browser app, sample data, and the cleanup workflow documents.</p>
+        </div>
+        <div class="price-card">
+          <span class="price-label">Starter</span>
+          <strong>$19</strong>
+          <p>Static browser app, clean CSV export, issue report export, and local use rights for one operator.</p>
+          <a class="primary-link" href="index.html">Preview app</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>LeadLint Studio</span>
+      <span>Digital product for CSV cleanup workflows</span>
+    </footer>
+  </body>
+</html>

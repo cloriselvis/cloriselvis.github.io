@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LeadLint Studio</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Browser-only CSV cleaner</p>
+          <h1>LeadLint Studio</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-button" id="sampleButton" type="button" title="Load sample data" aria-label="Load sample data">
+            <span aria-hidden="true">+</span>
+          </button>
+          <button class="ghost-button" id="reportButton" type="button" disabled>Export report</button>
+          <button class="primary-button" id="exportButton" type="button" disabled>Export clean CSV</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="input-panel" aria-label="CSV input">
+          <div class="dropzone" id="dropzone">
+            <input id="fileInput" type="file" accept=".csv,text/csv">
+            <div class="dropzone-body">
+              <span class="drop-icon" aria-hidden="true">CSV</span>
+              <div>
+                <h2>Drop a list</h2>
+                <p>Paste, upload, clean, export.</p>
+              </div>
+            </div>
+          </div>
+
+          <label class="field-label" for="csvInput">Raw CSV</label>
+          <textarea id="csvInput" spellcheck="false" placeholder="email,first_name,last_name,company,phone,website"></textarea>
+
+          <div class="control-row">
+            <button class="primary-button" id="cleanButton" type="button">Clean list</button>
+            <button class="ghost-button" id="resetButton" type="button">Reset</button>
+          </div>
+
+          <div class="options-grid" aria-label="Cleaning options">
+            <label class="check-control">
+              <input id="mergeDuplicates" type="checkbox" checked>
+              <span>Merge duplicates</span>
+            </label>
+            <label class="check-control">
+              <input id="titleCaseNames" type="checkbox" checked>
+              <span>Title case names</span>
+            </label>
+            <label class="check-control">
+              <input id="normalizePhones" type="checkbox" checked>
+              <span>Normalize phones</span>
+            </label>
+            <label class="check-control">
+              <input id="dropInvalidEmail" type="checkbox">
+              <span>Hide invalid emails</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="results-panel" aria-label="Cleaned results">
+          <div class="metrics-grid">
+            <div class="metric">
+              <span class="metric-value" id="rowsMetric">0</span>
+              <span class="metric-label">Rows</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value" id="keptMetric">0</span>
+              <span class="metric-label">Kept</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value" id="duplicateMetric">0</span>
+              <span class="metric-label">Dupes</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value" id="issueMetric">0</span>
+              <span class="metric-label">Issues</span>
+            </div>
+          </div>
+
+          <div class="filter-bar" role="tablist" aria-label="Result filters">
+            <button class="filter-button active" type="button" data-filter="all">All</button>
+            <button class="filter-button" type="button" data-filter="clean">Clean</button>
+            <button class="filter-button" type="button" data-filter="issues">Issues</button>
+            <button class="filter-button" type="button" data-filter="duplicates">Duplicates</button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Email</th>
+                  <th>Name</th>
+                  <th>Company</th>
+                  <th>Phone</th>
+                  <th>Website</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody id="resultsBody">
+                <tr class="empty-row">
+                  <td colspan="7">No list loaded.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="src/core.js"></script>
+    <script src="src/app.js"></script>
+  </body>
+</html>
