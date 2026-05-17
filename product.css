@@ -63,6 +63,10 @@ nav {
   padding: 44px 0 72px;
 }
 
+.pilot-hero {
+  min-height: calc(100vh - 112px);
+}
+
 .eyebrow {
   margin: 0 0 12px;
   color: var(--accent-dark);
