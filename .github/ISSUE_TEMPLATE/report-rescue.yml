@@ -1,0 +1,53 @@
+name: "Weekly report rescue pilot"
+description: "Request a review of one recurring spreadsheet or reporting workflow."
+title: "Weekly report rescue pilot request"
+labels:
+  - report-rescue
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not share credentials, secrets, customer records, private exports, or internal screenshots without redaction.
+        Start with the report goal, source names, column headers, and fake/sample rows.
+  - type: input
+    id: role
+    attributes:
+      label: Role / team
+      placeholder: "Founder, operator, agency, finance, marketing, sales..."
+    validations:
+      required: true
+  - type: input
+    id: report_type
+    attributes:
+      label: Report type
+      placeholder: "Weekly sales report, client KPI report, ad spend report, expense report..."
+    validations:
+      required: true
+  - type: textarea
+    id: current_process
+    attributes:
+      label: Current process
+      placeholder: "Every Friday I export A, paste into B, clean C, refresh D, then email E..."
+    validations:
+      required: true
+  - type: textarea
+    id: pain
+    attributes:
+      label: What is slow, fragile, or annoying?
+      placeholder: "Copy-paste, mismatched columns, broken formulas, late reports, unclear numbers..."
+    validations:
+      required: true
+  - type: input
+    id: time_cost
+    attributes:
+      label: Time or business cost
+      placeholder: "2 hours/week, late client reports, missed anomalies, manual checking..."
+    validations:
+      required: false
+  - type: textarea
+    id: safe_context
+    attributes:
+      label: Sanitized context
+      description: "Paste fake sample rows, column names, or a redacted workflow outline. No secrets or private records."
+    validations:
+      required: false
