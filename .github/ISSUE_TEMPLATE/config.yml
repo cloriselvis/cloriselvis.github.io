@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: LeadLint Studio app
+    url: https://cloriselvis.github.io/app.html
+    about: Run the CSV cleaner locally in your browser (no uploads).
+  - name: Pilot page
+    url: https://cloriselvis.github.io/pilot.html
+    about: Request a pilot cleanup review (share only sanitized samples).

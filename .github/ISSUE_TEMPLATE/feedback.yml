@@ -1,0 +1,64 @@
+name: "Feedback: LeadLint Studio"
+description: "Bug report, confusion, or improvement request (sanitized samples only)."
+title: "Feedback: LeadLint Studio"
+labels:
+  - feedback
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the feedback.
+
+        **Privacy rule:** Please do **not** post private customer/contact data here.
+        If you paste data, use a **sanitized sample** with fake emails / redacted domains.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - "Import / upload"
+        - "Column detection"
+        - "Normalization"
+        - "Duplicate merging"
+        - "Exports"
+        - "UI / UX"
+        - "Other"
+    validations:
+      required: true
+  - type: textarea
+    id: intent
+    attributes:
+      label: What were you trying to do?
+      placeholder: "e.g. clean a HubSpot export and remove duplicates before re-import"
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What happened?
+      placeholder: "What worked? What broke or confused you?"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Optional LeadLint summary
+      description: "If relevant, paste the app's Copy summary output here (no raw rows)."
+      render: markdown
+    validations:
+      required: false
+  - type: textarea
+    id: sample
+    attributes:
+      label: Optional sanitized sample (5-10 rows)
+      description: "Paste a sanitized snippet with fake emails / redacted domains. No real customer data."
+      render: csv
+    validations:
+      required: false
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: "Chrome / Edge / Firefox / Safari (+ version if you know it)"
+    validations:
+      required: false

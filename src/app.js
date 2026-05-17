@@ -7,6 +7,7 @@
   var cleanButton = document.getElementById("cleanButton");
   var resetButton = document.getElementById("resetButton");
   var sampleButton = document.getElementById("sampleButton");
+  var summaryButton = document.getElementById("summaryButton");
   var exportButton = document.getElementById("exportButton");
   var reportButton = document.getElementById("reportButton");
   var resultsBody = document.getElementById("resultsBody");
@@ -92,6 +93,7 @@
   function render() {
     if (!state.result) {
       setMetrics({ rows: 0, kept: 0, duplicates: 0, issues: 0 });
+      summaryButton.disabled = true;
       exportButton.disabled = true;
       reportButton.disabled = true;
       resultsBody.innerHTML = "<tr class=\"empty-row\"><td colspan=\"7\">No list loaded.</td></tr>";
@@ -99,6 +101,7 @@
     }
 
     setMetrics(state.result.metrics);
+    summaryButton.disabled = state.result.records.length === 0;
     exportButton.disabled = state.result.exportRows.length <= 1;
     reportButton.disabled = state.result.reportRows.length <= 1;
 
@@ -142,8 +145,8 @@
     reader.readAsText(file);
   }
 
-  function download(filename, content) {
-    var blob = new Blob([content], { type: "text/csv;charset=utf-8" });
+  function download(filename, content, mimeType) {
+    var blob = new Blob([content], { type: mimeType || "text/csv;charset=utf-8" });
     var url = URL.createObjectURL(blob);
     var link = document.createElement("a");
 
@@ -153,6 +156,81 @@
     link.click();
     link.remove();
     URL.revokeObjectURL(url);
+  }
+
+  function flashButton(button, message) {
+    var original = button.textContent;
+    button.textContent = message;
+    window.setTimeout(function () {
+      button.textContent = original;
+    }, 1200);
+  }
+
+  function formatDetectedColumns(detected, headers) {
+    var output = [];
+    var fields = Object.keys(detected || {}).sort();
+
+    fields.forEach(function (field) {
+      var index = detected[field];
+      if (typeof index !== "number") {
+        return;
+      }
+      output.push("- " + field + ": `" + (headers[index] || "") + "` (col " + (index + 1) + ")");
+    });
+
+    return output.length ? output.join("\n") : "- (none detected)";
+  }
+
+  function buildSummaryMarkdown(result, options) {
+    var issueCounts = {};
+    var duplicateRows = 0;
+    var mergedDuplicates = 0;
+
+    result.records.forEach(function (record) {
+      if (record.status === "duplicate") {
+        duplicateRows += 1;
+      }
+      if (record.duplicateCount) {
+        mergedDuplicates += record.duplicateCount;
+      }
+      (record.notes || []).forEach(function (note) {
+        issueCounts[note] = (issueCounts[note] || 0) + 1;
+      });
+    });
+
+    var issueLines = Object.keys(issueCounts).sort(function (a, b) {
+      return issueCounts[b] - issueCounts[a];
+    }).map(function (key) {
+      return "- " + key + ": " + issueCounts[key];
+    });
+
+    return [
+      "# LeadLint Studio cleanup summary",
+      "",
+      "Generated: " + new Date().toISOString(),
+      "",
+      "## Metrics",
+      "- Rows: " + result.metrics.rows,
+      "- Kept: " + result.metrics.kept,
+      "- Duplicate rows flagged: " + duplicateRows,
+      "- Duplicates merged into masters: " + mergedDuplicates,
+      "- Rows with issues: " + result.metrics.issues,
+      "",
+      "## Options",
+      "- Merge duplicates: " + (options.mergeDuplicates ? "on" : "off"),
+      "- Title case names: " + (options.titleCaseNames ? "on" : "off"),
+      "- Normalize phones: " + (options.normalizePhones ? "on" : "off"),
+      "- Hide invalid emails: " + (options.dropInvalidEmail ? "on" : "off"),
+      "",
+      "## Detected columns",
+      formatDetectedColumns(result.detected, result.headers),
+      "",
+      "## Issue breakdown",
+      issueLines.length ? issueLines.join("\n") : "- (no issues detected)",
+      "",
+      "## Notes",
+      "- This summary contains **no raw row data** (safe to paste in a GitHub issue)."
+    ].join("\n");
   }
 
   cleanButton.addEventListener("click", clean);
@@ -172,18 +250,39 @@
     clean();
   });
 
+  summaryButton.addEventListener("click", function () {
+    if (!state.result) {
+      return;
+    }
+
+    var markdown = buildSummaryMarkdown(state.result, getOptions());
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(markdown).then(function () {
+        flashButton(summaryButton, "Copied");
+      }).catch(function () {
+        download("leadlint-summary.md", markdown, "text/markdown;charset=utf-8");
+        flashButton(summaryButton, "Downloaded");
+      });
+      return;
+    }
+
+    download("leadlint-summary.md", markdown, "text/markdown;charset=utf-8");
+    flashButton(summaryButton, "Downloaded");
+  });
+
   exportButton.addEventListener("click", function () {
     if (!state.result) {
       return;
     }
-    download("leadlint-clean.csv", window.LeadLint.serializeCsv(state.result.exportRows));
+    download("leadlint-clean.csv", window.LeadLint.serializeCsv(state.result.exportRows), "text/csv;charset=utf-8");
   });
 
   reportButton.addEventListener("click", function () {
     if (!state.result) {
       return;
     }
-    download("leadlint-report.csv", window.LeadLint.serializeCsv(state.result.reportRows));
+    download("leadlint-report.csv", window.LeadLint.serializeCsv(state.result.reportRows), "text/csv;charset=utf-8");
   });
 
   fileInput.addEventListener("change", function (event) {

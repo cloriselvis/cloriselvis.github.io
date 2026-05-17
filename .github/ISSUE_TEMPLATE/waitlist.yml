@@ -1,0 +1,45 @@
+name: "Waitlist: LeadLint Studio checkout"
+description: "Signal interest while Paddle checkout is paused."
+title: "Waitlist: LeadLint Studio checkout"
+labels:
+  - waitlist
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Paddle checkout is currently paused (proof-of-address blocked). This issue is a lightweight way to signal interest **without sharing an email**.
+  - type: input
+    id: use_case
+    attributes:
+      label: Use case
+      placeholder: "Event list import, form export cleanup, recruiter list dedupe, ..."
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: CSV source
+      placeholder: "Form export, old CRM export, Apollo export, manual spreadsheet, ..."
+    validations:
+      required: false
+  - type: input
+    id: rows
+    attributes:
+      label: Approximate row count
+      placeholder: "e.g. 200, 800, 1500"
+    validations:
+      required: false
+  - type: textarea
+    id: pain
+    attributes:
+      label: Most expensive cleanup pain
+      placeholder: "Duplicates? Invalid emails? Phone formatting? Missing company/domain? ..."
+    validations:
+      required: false
+  - type: input
+    id: price
+    attributes:
+      label: Optional price anchor (one-time)
+      placeholder: "e.g. $19 / $49 / $99"
+    validations:
+      required: false
