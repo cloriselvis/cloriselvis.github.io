@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Automation Outcome Audit</title>
+    <link rel="stylesheet" href="product.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html">Autonomous Income Lab</a>
+      <nav aria-label="Product">
+        <a href="workflow-cleanup.html">Workflow</a>
+        <a href="outcome-audit.html">Outcome Audit</a>
+        <a href="weekly-report-rescue.html">Reports</a>
+        <a href="pilot.html">CSV Pilot</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero pilot-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Workflow cleanup sub-offer</p>
+          <h1>Your workflow is green. Did the business result happen?</h1>
+          <p class="lede">A focused audit for scheduled automations that technically run but still leave someone checking Slack, Sheets, Gmail, Stripe, HubSpot, or n8n every Monday.</p>
+          <div class="hero-actions">
+            <a class="primary-link" href="https://github.com/cloriselvis/cloriselvis.github.io/issues/new?template=outcome-audit.yml&title=Automation%20outcome%20audit%20request" rel="noopener">Request outcome audit</a>
+            <a class="secondary-link" href="workflow-cleanup.html">Workflow cleanup</a>
+          </div>
+        </div>
+        <div class="product-shot" aria-label="Automation outcome audit preview">
+          <div class="shot-top">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="shot-grid">
+            <div class="shot-panel">
+              <strong>Execution status</strong>
+              <p>Run completed<br>No node failed<br>Green checkmark<br>Still untrusted</p>
+            </div>
+            <div class="shot-panel">
+              <strong>Outcome status</strong>
+              <p>Expected records<br>Actual records<br>Skipped rows<br>Exception owner</p>
+            </div>
+          </div>
+          <table>
+            <tr><th>Metric</th><th>Audit question</th></tr>
+            <tr><td>Heartbeat</td><td>Did it run by the expected time?</td></tr>
+            <tr><td>Delta</td><td>Did the right number of records move?</td></tr>
+            <tr><td>Exceptions</td><td>Who owns skipped or failed items?</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-band">
+        <div class="section-inner">
+          <h2>What gets checked</h2>
+          <div class="feature-grid">
+            <article>
+              <h3>Expected vs actual</h3>
+              <p>Define the expected business output for each run: records processed, emails sent, invoices updated, rows appended, or leads routed.</p>
+            </article>
+            <article>
+              <h3>Zero-delta alerts</h3>
+              <p>Catch workflows that run successfully but produce no new business result for one or more scheduled runs.</p>
+            </article>
+            <article>
+              <h3>Exception queue</h3>
+              <p>Give skipped records a visible owner, timestamp, reason, and rerun path instead of hiding them in logs.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-band">
+        <div class="section-inner">
+          <h2>Good candidates</h2>
+          <div class="feature-grid">
+            <article>
+              <h3>Revenue workflows</h3>
+              <p>Invoice reminders, quote follow-ups, Stripe status checks, renewal nudges, and CRM lead routing.</p>
+            </article>
+            <article>
+              <h3>Reporting workflows</h3>
+              <p>Weekly Sheets updates, KPI summaries, client reports, dashboards, and data exports that people still manually inspect.</p>
+            </article>
+            <article>
+              <h3>Support handoffs</h3>
+              <p>Gmail, Slack, ticketing, form intake, and AI summaries where missing one record creates visible confusion.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Autonomous Income Lab</span>
+      <span>Automation outcome audit</span>
+    </footer>
+  </body>
+</html>

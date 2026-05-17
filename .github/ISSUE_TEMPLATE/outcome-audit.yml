@@ -1,0 +1,54 @@
+name: "Automation outcome audit"
+description: "Request a review of one automation that runs but still needs manual checking."
+title: "Automation outcome audit request"
+labels:
+  - outcome-audit
+  - workflow-cleanup
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not share credentials, secrets, private customer data, tokens, or unredacted screenshots.
+        Start with the business result the automation should produce, not the full workflow export.
+  - type: input
+    id: role
+    attributes:
+      label: Role / team
+      placeholder: "Founder, ops manager, agency, solo operator..."
+    validations:
+      required: true
+  - type: input
+    id: tools
+    attributes:
+      label: Tools involved
+      placeholder: "n8n, Zapier, Make, Google Sheets, Slack, Gmail, HubSpot, Stripe..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected_result
+    attributes:
+      label: Expected business result
+      placeholder: "Every weekday at 9am, the workflow should find new invoices, send reminders, and append skipped rows to a review sheet..."
+    validations:
+      required: true
+  - type: textarea
+    id: current_checking
+    attributes:
+      label: What do you still check manually?
+      placeholder: "I still check execution history, count rows, compare Slack messages, inspect failed records..."
+    validations:
+      required: true
+  - type: input
+    id: failure_signal
+    attributes:
+      label: How do you know it failed today?
+      placeholder: "No rows added, no Slack alert, customer complains, invoice not updated..."
+    validations:
+      required: false
+  - type: textarea
+    id: safe_context
+    attributes:
+      label: Sanitized context
+      description: "Paste a redacted outline, fake sample rows, metric names, or screenshots with secrets removed."
+    validations:
+      required: false

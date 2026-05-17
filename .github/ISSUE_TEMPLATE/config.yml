@@ -9,6 +9,9 @@ contact_links:
   - name: Workflow cleanup pilot
     url: https://cloriselvis.github.io/workflow-cleanup.html
     about: Request a review of one fragile automation or AI-assisted workflow.
+  - name: Automation outcome audit
+    url: https://cloriselvis.github.io/outcome-audit.html
+    about: Request a review of one automation that runs but still needs manual checking.
   - name: Weekly report rescue pilot
     url: https://cloriselvis.github.io/weekly-report-rescue.html
     about: Request a review of one recurring spreadsheet or reporting workflow.
