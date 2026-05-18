@@ -244,6 +244,27 @@ article p,
   line-height: 1.55;
 }
 
+.template-block {
+  margin-top: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfbf8;
+  padding: 18px;
+}
+
+.template-block pre {
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .pricing {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
