@@ -98,6 +98,24 @@ h1 {
   line-height: 1.55;
 }
 
+.quick-ask {
+  max-width: 620px;
+  margin-top: 22px;
+  padding-left: 14px;
+  border-left: 4px solid var(--accent);
+}
+
+.quick-ask strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent-dark);
+}
+
+.quick-ask p {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
 .hero-actions {
   display: flex;
   gap: 12px;
