@@ -1,6 +1,6 @@
 name: "Automation reliability rescue"
-description: "Request a diagnostic for one broken or unreliable automation workflow."
-title: "Automation reliability rescue request"
+description: "Request a reliability fix or outcome-proof setup for one unreliable automation workflow."
+title: "Automation reliability fix request"
 labels:
   - workflow-cleanup
   - outcome-audit
@@ -9,7 +9,7 @@ body:
     attributes:
       value: |
         Do not share credentials, secrets, private customer data, tokens, or unredacted screenshots.
-        The first pass only needs a sanitized workflow shape.
+        The first pass only needs a sanitized workflow shape. Paid implementation is scoped only after the expected outcome, actual miss, retry risk, and proof check are clear.
   - type: input
     id: role
     attributes:
@@ -49,6 +49,6 @@ body:
     id: sanitized_context
     attributes:
       label: Redacted context
-      description: "Paste redacted error text, fake rows, node list, or screenshots with secrets removed."
+      description: "Paste redacted error text, fake rows, node list, or screenshots with secrets removed. Add any current verification or retry checks if they exist."
     validations:
       required: false
