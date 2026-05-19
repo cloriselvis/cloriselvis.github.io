@@ -1,0 +1,54 @@
+name: "Automation reliability rescue"
+description: "Request a diagnostic for one broken or unreliable automation workflow."
+title: "Automation reliability rescue request"
+labels:
+  - workflow-cleanup
+  - outcome-audit
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not share credentials, secrets, private customer data, tokens, or unredacted screenshots.
+        The first pass only needs a sanitized workflow shape.
+  - type: input
+    id: role
+    attributes:
+      label: Role / team
+      placeholder: "Founder, ops manager, agency, automator..."
+    validations:
+      required: true
+  - type: input
+    id: tools
+    attributes:
+      label: Tools involved
+      placeholder: "n8n, Zapier, Make, Twilio, WhatsApp, Slack, HubSpot, Sheets..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected_outcome
+    attributes:
+      label: Expected outcome
+      placeholder: "Each new lead should be captured, called, tagged, followed up by message/email, and moved to the right CRM stage..."
+    validations:
+      required: true
+  - type: textarea
+    id: actual_miss
+    attributes:
+      label: Actual miss or failure
+      placeholder: "Calls happen but CRM stage is not updated; queue runs late; approval message sends but workflow stops; duplicates appear after retry..."
+    validations:
+      required: true
+  - type: input
+    id: schedule_volume
+    attributes:
+      label: Schedule + rough volume
+      placeholder: "Hourly, daily, 30-100 leads/week, 500 rows/run..."
+    validations:
+      required: true
+  - type: textarea
+    id: sanitized_context
+    attributes:
+      label: Redacted context
+      description: "Paste redacted error text, fake rows, node list, or screenshots with secrets removed."
+    validations:
+      required: false
