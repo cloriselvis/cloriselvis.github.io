@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Automation Failure Patterns</title>
+    <link rel="stylesheet" href="product.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html">Autonomous Income Lab</a>
+      <nav aria-label="Product">
+        <a href="reliability-rescue.html">Rescue</a>
+        <a href="automation-failure-patterns.html">Patterns</a>
+        <a href="outcome-audit.html">Outcome Audit</a>
+        <a href="workflow-cleanup.html">Workflow</a>
+        <a href="weekly-report-rescue.html">Reports</a>
+        <a href="pilot.html">CSV Pilot</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero pilot-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Automation reliability field notes</p>
+          <h1>Green runs do not prove the business outcome happened.</h1>
+          <p class="lede">Public n8n and Make threads show the same reliability gap again and again: the workflow technically runs, but rows are missing, approvals stall, queues lag, alerts flood, or retries risk duplicates.</p>
+          <div class="quick-ask" aria-label="Reliability diagnostic starting point">
+            <strong>Useful first question</strong>
+            <p>For one workflow, what outcome should be provably true after each run, and what is the smallest check that would catch a miss without exposing private data?</p>
+          </div>
+          <div class="hero-actions">
+            <a class="primary-link" href="reliability-rescue.html">Request diagnostic</a>
+            <a class="secondary-link" href="#patterns">See patterns</a>
+          </div>
+        </div>
+        <div class="product-shot" aria-label="Automation failure pattern preview">
+          <div class="shot-top">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="shot-grid">
+            <div class="shot-panel">
+              <strong>Execution proof</strong>
+              <p>Run completed<br>No node failed<br>Message sent<br>Webhook received</p>
+            </div>
+            <div class="shot-panel">
+              <strong>Outcome gap</strong>
+              <p>Rows missing<br>Approval stuck<br>Queue delayed<br>Duplicates possible</p>
+            </div>
+          </div>
+          <table>
+            <tr><th>Failure class</th><th>Smallest check</th></tr>
+            <tr><td>Green but partial</td><td>Expected count vs written count.</td></tr>
+            <tr><td>Delayed queue</td><td>Oldest item age vs SLA.</td></tr>
+            <tr><td>Unsafe retry</td><td>Stable item key before restart.</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-band" id="patterns">
+        <div class="section-inner">
+          <h2>Public failure patterns</h2>
+          <p class="lede">These are paraphrased from public community threads. The point is not that every case needs a rebuild. The point is that each case needs an outcome check outside the green checkmark.</p>
+          <table class="pattern-table">
+            <tr>
+              <th>Pattern</th>
+              <th>Public signal</th>
+              <th>Business risk</th>
+              <th>Smallest reliability check</th>
+            </tr>
+            <tr>
+              <td>Concurrent writes miss rows</td>
+              <td>Webhook uploads append to Google Sheets; single uploads work, but bulk uploads record only some rows while executions show success.</td>
+              <td>Assets, leads, orders, or form entries disappear from the operator's working sheet.</td>
+              <td>Add a stable upload or item ID, compare received count to written count, and reconcile missing IDs before Sheets becomes the only record.</td>
+            </tr>
+            <tr>
+              <td>Approval sends but never resumes</td>
+              <td>A Slack approval message is sent, but the wait node returns no usable output and the workflow stops or cancels.</td>
+              <td>Lead endorsement, review, or handoff work looks initiated but never reaches the next system.</td>
+              <td>Track each approval request by ID, timeout, owner, and final outcome; alert on unresolved approvals.</td>
+            </tr>
+            <tr>
+              <td>Queue processes hours late</td>
+              <td>A Make scenario accumulates queued records and later processes them after a multi-hour delay.</td>
+              <td>Time-sensitive records wait too long, so "eventually processed" is still operational failure.</td>
+              <td>Measure oldest queue age and count; alert when lag exceeds the expected processing SLA.</td>
+            </tr>
+            <tr>
+              <td>Retry can duplicate work</td>
+              <td>Google Sheets rate limits stop a workflow; the operator wants auto-restart but is worried about duplicate runs.</td>
+              <td>Recovery can create duplicate rows, duplicate messages, or inconsistent downstream state.</td>
+              <td>Define an idempotency key and retry cursor before auto-restarting failed or stopped runs.</td>
+            </tr>
+            <tr>
+              <td>Trigger fails only in production</td>
+              <td>A Google Sheets trigger stops in scheduled use while manual runs still appear to work.</td>
+              <td>Manual testing gives false confidence; the real scheduled workflow remains broken.</td>
+              <td>Add a heartbeat for expected run time and a zero-delta check for missing downstream changes.</td>
+            </tr>
+            <tr>
+              <td>Error alerts become noise</td>
+              <td>Repeated API failures create a flood of Slack alerts instead of one actionable incident.</td>
+              <td>People learn to ignore the channel that should protect the workflow.</td>
+              <td>Group errors by workflow, error class, and time window with first seen, last seen, count, and owner.</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-band">
+        <div class="section-inner">
+          <h2>Diagnostic shape</h2>
+          <div class="feature-grid">
+            <article>
+              <h3>Define the outcome</h3>
+              <p>Write the business result in plain language: records appended, leads routed, approvals completed, reports delivered, invoices updated, or files processed.</p>
+            </article>
+            <article>
+              <h3>Find the trust gap</h3>
+              <p>Separate execution health from outcome health. A green run can still hide missing rows, late queues, empty results, or stalled approvals.</p>
+            </article>
+            <article>
+              <h3>Add one proof check</h3>
+              <p>Start with the smallest durable check: count, heartbeat, queue age, stable item key, unresolved approval list, or grouped error summary.</p>
+            </article>
+          </div>
+          <div class="template-block" role="note" aria-label="Sanitized workflow reliability prompt">
+            <h3>Sanitized first-ask prompt</h3>
+            <p>No credentials, private data, or customer records are needed for a first pass.</p>
+            <pre>Workflow purpose:
+Tools involved:
+Trigger and schedule:
+Expected outcome per run:
+Current failure or silent miss:
+How you verify it today:
+Rough volume:
+Redacted error/screenshot/fake row:
+Duplicate or retry risk:
+Who should own exceptions:</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-band">
+        <div class="section-inner">
+          <h2>Sources used</h2>
+          <ul class="source-list">
+            <li><a href="https://community.n8n.io/t/google-sheets-missing-rows-race-condition-during-bulk-webhook-triggers/295991" target="_blank" rel="noopener">n8n: Google Sheets missing rows during bulk webhook triggers</a></li>
+            <li><a href="https://community.n8n.io/t/slack-send-and-wait-for-response-node-sends-message-but-returns-no-output-workflow-stops/285371" target="_blank" rel="noopener">n8n: Slack Send and Wait sends a message but returns no output</a></li>
+            <li><a href="https://community.make.com/t/scenario-wont-run-the-records-in-queue/90639" target="_blank" rel="noopener">Make: Scenario records stuck in queue and processed late</a></li>
+            <li><a href="https://community.n8n.io/t/n8n-workflow-stopping-repeatly/242036" target="_blank" rel="noopener">n8n: Google Sheets rate limits and restart without duplicate runs</a></li>
+            <li><a href="https://community.n8n.io/t/google-sheet-trigger-stopped-working-503-error/36112" target="_blank" rel="noopener">n8n: Google Sheets trigger stopped working while manual runs worked</a></li>
+            <li><a href="https://community.n8n.io/t/batch-slack-error-messages/7353" target="_blank" rel="noopener">n8n: batching Slack error messages after alert floods</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="pricing" id="diagnostic">
+        <div class="pricing-copy">
+          <h2>Want one workflow checked?</h2>
+          <p>Send the sanitized shape above. The first response is a written reliability diagnosis: likely failure class, missing proof check, retry/idempotency risk, and smallest safe next repair.</p>
+        </div>
+        <div class="price-card">
+          <span class="price-label">Early diagnostic</span>
+          <strong>$99-$299</strong>
+          <p>Manual quote only while checkout is paused. You can request a first sanitized review without sending credentials or customer data.</p>
+          <a class="primary-link" href="https://github.com/cloriselvis/cloriselvis.github.io/issues/new?template=reliability-rescue.yml&title=Automation%20reliability%20rescue%20request" target="_blank" rel="noopener">Request diagnostic</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Autonomous Income Lab</span>
+      <span>Automation failure patterns</span>
+    </footer>
+  </body>
+</html>
